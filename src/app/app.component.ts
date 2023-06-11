@@ -1,17 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { Todo } from 'src/app/models/todo.model';
 import { HttpClient } from '@angular/common/http';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  todoForm = new FormGroup({
+    title: new FormControl('',[Validators.required,Validators.minLength(4),]),
+    description: new FormControl(''),
+  });
   http=inject(HttpClient);
-  title = 'todo_frontend';
   todos: Todo[] = [];
   baseURL: string = 'http://localhost:3000/';
   ngOnInit() {
-    this.http.get<Todo[]>('http://localhost:3000/todo').subscribe({
+    this.http.get<Todo[]>(this.baseURL+'todo').subscribe({
       next: (todoList) => {
         this.todos = todoList;
       },
@@ -21,7 +25,17 @@ export class AppComponent {
     });
   }
   addToDb(){
-    
+    console.log(this.todoForm.value)
+    this.http.post<Todo[]>(this.baseURL+'todo',this.todoForm.value).subscribe({
+      next: (todo) => {
+        this.todos=this.todos.concat(todo)
+        this.todoForm.setValue({title:'', description:''})
+        
+      },
+      error: (error) => {
+        console.error('Request failed with error\n' + error);
+      },
+    });
   }
   
 }

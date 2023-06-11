@@ -44,7 +44,4 @@ export class DialogComponent {
         },
       });
   }
-  onNoClick(): void {
-    this.matDialogRef.close();
-  }
 }
