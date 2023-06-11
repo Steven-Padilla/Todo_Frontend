@@ -1,4 +1,4 @@
-import { Component, Input,inject,Output, EventEmitter } from '@angular/core';
+import { Component, Input,inject } from '@angular/core';
 import { Todo } from 'src/app/models/todo.model';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -10,7 +10,6 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './todo.component.html',
 })
 export class TodoComponent {
-  @Output() sendData = new EventEmitter<Todo>();
   http=inject(HttpClient);
   @Input() todo: Todo = {
     id: 1,
@@ -37,9 +36,7 @@ export class TodoComponent {
         this.todo=data
       }
     })
-    dialogRef.backdropClick().subscribe(_ => {
-      dialogRef.close();
-    })
+    
     
   }
 

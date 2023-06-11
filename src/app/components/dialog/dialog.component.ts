@@ -1,4 +1,4 @@
-import { Component, Inject,inject,Output, EventEmitter } from '@angular/core';
+import { Component, Inject,inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +10,6 @@ import { Todo } from 'src/app/models/todo.model';
   templateUrl: './dialog.component.html',
 })
 export class DialogComponent {
-  @Output() sendData= new EventEmitter<Todo>();
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: { id: number; title: string; description: string },
@@ -29,19 +28,13 @@ export class DialogComponent {
       .put<Todo>(`http://localhost:3000/todo/${this.data.id}`, this.todoForm.value)
       .subscribe({
         next: (todoUpdated) => {
-          let json={
-            id:this.data.id,
-            title:this.todoForm.value.title ? this.todoForm.value.title : "",
-            description:this.todoForm.value.description ? this.todoForm.value.description : ""
-          }
-          this.data =json
-          this.sendData.emit(json);
-          console.log('todoupdated' + JSON.stringify(todoUpdated));
-          this.matDialogRef.close(json)
+          this.data =todoUpdated
+          this.matDialogRef.close(todoUpdated)
         },
         error: (error) => {
           console.error('Request failed with error\n' + error);
         },
       });
   }
+  
 }
