@@ -1,7 +1,8 @@
 <div class="flex flex-row  mb-4 items-center w-11/12 mx-auto mt-4 ">
   <button mat-raised-button (click)="openDialog()" class=" grow border-2 rounded-md p-2 text-center hover:text-xl hover:text-gray-700 shadow-sm text-gray-500 hover:shadow-lg hover:border-gray-400">
-    <p class="uppercase text-2xl">{{ todo.title }}</p>
-    <p class="grow text-lg">{{ todo.description }}</p>
+    <p class="uppercase text-2xl" >{{ todo.title }}</p>
+    <p class="grow text-lg" *ngIf="todo.description; else elseBlock">{{ todo.description }}</p>
+    <ng-template #elseBlock ><p class="text-gray-300">*No description*</p> </ng-template>
   </button>
 
 </div>
