@@ -1,13 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,inject,Output, EventEmitter } from '@angular/core';
 import { Todo } from 'src/app/models/todo.model';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
 })
 export class TodoComponent {
+  @Output() sendData = new EventEmitter<Todo>();
+  http=inject(HttpClient);
   @Input() todo: Todo = {
     id: 1,
     title: 'No title',
@@ -18,7 +22,7 @@ export class TodoComponent {
     const id = this.todo.id;
     const title = this.todo.title;
     const description = this.todo.description;
-    this.matDialog.open(DialogComponent, {
+    let dialogRef=this.matDialog.open(DialogComponent, {
       height: '55vh',
       width: '55vw',
       data: {
@@ -27,11 +31,16 @@ export class TodoComponent {
         description: description,
       },
       ariaDescribedBy: this.todo.id.toString(),
-      autoFocus:true,
-      position:{
-        top:'-60vh',
-        left:'19vw',
-      }
     });
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data){
+        this.todo=data
+      }
+    })
+    dialogRef.backdropClick().subscribe(_ => {
+      dialogRef.close();
+    })
+    
   }
+
 }

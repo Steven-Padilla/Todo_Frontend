@@ -8,7 +8,7 @@ import { TodoComponent } from './components/todo/todo.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon'
-
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +20,8 @@ import {MatIconModule} from '@angular/material/icon'
     AppRoutingModule,
     HttpClientModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
