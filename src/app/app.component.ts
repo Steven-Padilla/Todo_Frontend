@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  http=inject(HttpClient)
+  http=inject(HttpClient);
   title = 'todo_frontend';
   todos: Todo[] = [];
   baseURL: string = 'http://localhost:3000/';
@@ -20,4 +20,5 @@ export class AppComponent {
       },
     });
   }
+  
 }
