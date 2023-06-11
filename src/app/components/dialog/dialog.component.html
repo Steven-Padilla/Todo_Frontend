@@ -3,23 +3,21 @@
     <mat-icon>close</mat-icon>
   </button>
 </div>
-<div
-  class="flex flex-row justify-center mb-4 items-center w-11/12 mx-auto mt-4"
->
-  <button
-    class="grow border-2 rounded-md p-2 text-center hover:text-xl hover:text-gray-700 shadow-sm text-gray-500 hover:shadow-lg hover:border-gray-400"
-  >
-    <h2 class="uppercase text-2xl font-medium">{{ data.title }}</h2>
-    <p>{{ data.description }}</p>
-  </button>
-  <button
-    class="justify-self-end p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green"
-  >
-    Done
-  </button>
-  <button
-    class="justify-self-end flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"
-  >
-    Remove
-  </button>
+<div class="flex flex-col justify-center mb-20 items-center w-11/12 mx-auto mt-4 ">
+ 
+    <input 
+    class="shadow border rounded w-2/5 py-2 px-3 mb-1 mr-4 hover:shadow-lg"
+    placeholder="Titulo"   value={{data.title}} />
+    <textarea class="shadow border rounded w-full py-2 mb-2 px-3 mr-4 hover:shadow-lg" matInput placeholder="Descripción"> {{data.description}}</textarea>
+  <div class="flex-row ">
+    <button
+      class="p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">
+      Actualizar
+    </button>
+    <button
+      class="p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">
+      Eliminar
+    </button>
+  </div>
+
 </div>

@@ -29,7 +29,7 @@ export class TodoComponent {
       ariaDescribedBy: this.todo.id.toString(),
       autoFocus:true,
       position:{
-        top:'-50vh',
+        top:'-60vh',
         left:'19vw',
       }
     });
