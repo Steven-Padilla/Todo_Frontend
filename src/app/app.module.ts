@@ -9,11 +9,15 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon'
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
     TodoComponent,
-    DialogComponent
+    DialogComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

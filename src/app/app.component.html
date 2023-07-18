@@ -1,24 +1,5 @@
-<!-- Toolbar -->
-<div class="flex justify-center pb-3.5">
-  <div class="bg-white rounded-xl shadow-2xl p-6 md:w-1/2 w-full">
-    <p class="text-gray-400 text-4xl pl-3.5">Todo</p>
-    <form class="flex flex-col mt-4" [formGroup]="todoForm" (ngSubmit)="addToDb()">
+<app-login *ngIf="!isLoged; else home" (loginEvent)="setLogin($event)" ></app-login>
 
-      
-      <input 
-      class="shadow border hover:border-gray-800 rounded w-2/5 py-2 px-3 mb-1 mr-4 hover:shadow-lg"
-      placeholder="Titulo" formControlName="title"
-      />
-      <textarea  formControlName="description" class="shadow border rounded hover:border-gray-800  w-full py-2 mb-2 px-3 mr-4 hover:shadow-lg" matInput placeholder="Descripción"></textarea>
-      <p class="text-rose-300" *ngIf="!todoForm.valid">Llena los campos *</p>
-      <div class="flex flex-row justify-center">
-        <button  type="submit"  [disabled]="!todoForm.valid"
-          class=" p-2 border-2 rounded-md w-2/5 border-teal-500 text-teal-500 hover:text-white hover:bg-teal-500"
-        >
-          Agregar
-        </button>
-      </div>
-    </form>
-      <app-todo [todo]="todo" *ngFor="let todo of todos"></app-todo>
-  </div>
-</div>
+<ng-template #home>
+    <app-home ></app-home>
+</ng-template>

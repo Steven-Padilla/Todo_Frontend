@@ -1,41 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { Todo } from 'src/app/models/todo.model';
-import { HttpClient } from '@angular/common/http';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  todoForm = new FormGroup({
-    title: new FormControl('',[Validators.required,Validators.minLength(4),]),
-    description: new FormControl(''),
-  });
-  http=inject(HttpClient);
-  todos: Todo[] = [];
-  baseURL: string = 'http://localhost:3000/';
-  ngOnInit() {
-    this.http.get<Todo[]>(this.baseURL+'todo').subscribe({
-      next: (todoList) => {
-        this.todos = todoList;
-      },
-      error: (error) => {
-        console.error('Request failed with error\n' + error);
-      },
-    });
+  isLoged=false
+  
+  setLogin(state:boolean){
+    this.isLoged=state
   }
-  addToDb(){
-    console.log(this.todoForm.value)
-    this.http.post<Todo[]>(this.baseURL+'todo',this.todoForm.value).subscribe({
-      next: (todo) => {
-        this.todos=this.todos.concat(todo)
-        this.todoForm.setValue({title:'', description:''})
-        
-      },
-      error: (error) => {
-        console.error('Request failed with error\n' + error);
-      },
-    });
+
+  ngOnInit(){
+    const token= window.localStorage.getItem('user-token')
+    if (token){
+      this.isLoged=true
+    }
   }
   
 }
