@@ -15,7 +15,8 @@ export class HomeComponent {
   todos: Todo[] = [];
   baseURL: string = 'http://localhost:3000/';
   ngOnInit() {
-    this.http.get<Todo[]>(this.baseURL + 'todo').subscribe({
+    const idUser = window.localStorage.getItem('userID') 
+    this.http.get<Todo[]>(this.baseURL + 'todo/'+idUser).subscribe({
       next: (todoList) => {
         this.todos = todoList;
       },
@@ -25,9 +26,14 @@ export class HomeComponent {
     });
   }
   addToDb() {
-    console.debug(this.todoForm.value);
+    const idUser = window.localStorage.getItem('userID') 
+    const data={
+      title:this.todoForm.value.title,
+      description:this.todoForm.value.description,
+      userIdName:idUser
+    }
     this.http
-      .post<Todo[]>(this.baseURL + 'todo', this.todoForm.value)
+      .post<Todo[]>(this.baseURL + 'todo', data)
       .subscribe({
         next: (todo) => {
           this.todos = this.todos.concat(todo);

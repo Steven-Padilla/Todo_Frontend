@@ -25,7 +25,12 @@ export class LoginComponent {
       .post<ResLogin>(this.baseURL + 'user/login', this.loginForm.value)
       .subscribe({
         next: (response) => {
+          const idName=this.loginForm.value.idName ? this.loginForm.value.idName : 'default';
+          
+          window.localStorage.setItem('userID', idName);
+
           this.loginForm.setValue({ idName: '', password: '' });
+          
           this.loginEvent.emit(true);
           if (response) {
             window.localStorage.setItem('user-token', response.token);
